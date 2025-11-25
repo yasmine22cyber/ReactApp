@@ -13,8 +13,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS_ID = 'docker'
 
         // Noms des images Docker Hub
-        IMAGE_NAME_SERVER = 'yasminekriaa/mern-server'
-        IMAGE_NAME_CLIENT = 'yasminekriaa/mern-client'
+        IMAGE_NAME_SERVER = 'yasminekriaa21/mern-server'
+        IMAGE_NAME_CLIENT = 'yasminekriaa21/mern-client'
     }
 
     stages {
