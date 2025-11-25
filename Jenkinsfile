@@ -10,7 +10,7 @@ pipeline {
 
     environment {
         // ID des credentials Docker Hub (Jenkins > Credentials)
-        DOCKERHUB_CREDENTIALS_ID = 'docker'
+        DOCKERHUB_CREDENTIALS_ID = 'doc'
 
         // Noms des images Docker Hub
         IMAGE_NAME_SERVER = 'yasminekriaa21/mern-server'
