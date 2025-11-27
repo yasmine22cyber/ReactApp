@@ -80,7 +80,7 @@ pipeline {
 
     post {
         always {
-            bat "docker system prune -af"    // nettoyage demandé dans le TP
+            bat "docker system prune -af"  
         }
     }
 }
