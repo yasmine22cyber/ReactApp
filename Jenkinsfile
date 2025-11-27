@@ -9,15 +9,13 @@ pipeline {
     }
 
     environment {
-        // ID des credentials Docker Hub (Jenkins > Credentials)
         DOCKERHUB_CREDENTIALS_ID = 'doc'
-
-        // Noms des images Docker Hub
         IMAGE_NAME_SERVER = 'yasminekriaa21/mern-server'
         IMAGE_NAME_CLIENT = 'yasminekriaa21/mern-client'
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -48,7 +46,9 @@ pipeline {
             steps {
                 script {
                     bat """
-                    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL ${IMAGE_NAME_SERVER}:latest
+                    docker run --rm ^
+                    -v //./pipe/docker_engine://./pipe/docker_engine ^
+                    aquasec/trivy:latest image --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL ${IMAGE_NAME_SERVER}:latest
                     """
                 }
             }
@@ -58,7 +58,9 @@ pipeline {
             steps {
                 script {
                     bat """
-                    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL ${IMAGE_NAME_CLIENT}:latest
+                    docker run --rm ^
+                    -v //./pipe/docker_engine://./pipe/docker_engine ^
+                    aquasec/trivy:latest image --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL ${IMAGE_NAME_CLIENT}:latest
                     """
                 }
             }
@@ -73,6 +75,12 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            bat "docker system prune -af"    // nettoyage demandé dans le TP
         }
     }
 }
